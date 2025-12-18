@@ -38,7 +38,8 @@ export async function GET() {
     let totalIncome = 0
     let totalExpense = 0
     
-    transactions.forEach(transaction => {
+    // Explicitly type the transaction parameter
+    transactions.forEach((transaction: { type: string; amount: number }) => {
       if (transaction.type === 'income') {
         totalIncome += transaction.amount
       } else {
