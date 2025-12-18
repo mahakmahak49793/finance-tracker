@@ -6,7 +6,7 @@ export async function GET() {
   try {
     // Get total balance
     const accounts = await prisma.account.findMany()
-    const totalBalance = accounts.reduce((sum, account) => sum + account.balance, 0)
+    const totalBalance = accounts.reduce((sum:number, account) => sum + account.balance, 0)
     
     // Get transactions for the current month
     const now = new Date()
