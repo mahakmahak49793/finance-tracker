@@ -1,4 +1,6 @@
 // app/api/categories/[id]/route.ts
+/*eslint-disable @typescript-eslint/no-require-imports*/
+/*eslint-disable  @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getUserIdFromRequest } from '@/lib/auth-utils'

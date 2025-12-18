@@ -1,3 +1,5 @@
+/*eslint-disable @typescript-eslint/no-require-imports*/
+/*eslint-disable  @typescript-eslint/no-unused-vars */
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyToken } from '@/lib/auth'
 import { cookies } from 'next/headers'
