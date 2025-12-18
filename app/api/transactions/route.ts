@@ -193,7 +193,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Start a transaction to ensure data consistency
-    const result = await prisma.$transaction(async (prisma) => {
+    const result = await prisma.$transaction(async (prisma: any) => {
       // Create the transaction
       const transaction = await prisma.transaction.create({
         data: {
