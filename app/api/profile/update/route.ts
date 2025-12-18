@@ -3,9 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyToken, verifyPassword, hashPassword } from '@/lib/auth'
 import { cookies } from 'next/headers'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'  // Import from your existing prisma instance
 
 export async function PUT(request: NextRequest) {
   try {
