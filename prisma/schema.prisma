@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String   // 🔹 Add this field for credentials login
+  accounts  Account[]
+  transactions Transaction[]
+  categories    Category[] 
+  createdAt DateTime @default(now())
+  
+}
+
+
+model Account {
+  id        String        @id @default(cuid())
+  name      String
+  type      String        // e.g. "bank", "wallet", "credit-card"
+  balance   Float         @default(0)
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime      @default(now())
+  transactions Transaction[]
+}
+
+
+model Category {
+  id        String        @id @default(cuid())
+  name      String
+  type      String        // "income" or "expense"
+  icon      String?
+  
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+
+  transactions Transaction[]
+  createdAt DateTime      @default(now())
+}
+
+
+model Transaction {
+  id          String      @id @default(cuid())
+  amount      Float
+  type        String      // "income" or "expense"
+  note        String?
+  date        DateTime
+
+  user        User        @relation(fields: [userId], references: [id])
+  userId      String
+
+  account     Account     @relation(fields: [accountId], references: [id])
+  accountId   String
+
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  String
+
+  createdAt   DateTime    @default(now())
+}
