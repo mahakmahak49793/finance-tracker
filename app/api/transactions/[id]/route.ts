@@ -4,6 +4,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getUserIdFromRequest } from '@/lib/auth-utils'
+import type { Prisma } from '@prisma/client'
 
 // GET single transaction
 export async function GET(
@@ -165,7 +166,7 @@ export async function PUT(
     }
 
     // Use transaction to ensure data consistency
-    const result = await prisma.$transaction(async (prisma) => {
+    const result = await prisma.$transaction(async (prisma: Prisma.TransactionClient) => {
       // Calculate balance adjustment
       const oldAmount = existingTransaction.amount
       const oldType = existingTransaction.type
@@ -291,7 +292,7 @@ export async function DELETE(
     }
 
     // Use transaction to ensure data consistency
-    await prisma.$transaction(async (prisma) => {
+    await prisma.$transaction(async (prisma: Prisma.TransactionClient) => {
       // Revert transaction from account balance
       const balanceChange = existingTransaction.type === 'income' 
         ? -existingTransaction.amount 
